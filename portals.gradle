@@ -1,0 +1,34 @@
+// Each entry produces its own launcher app and private WebView session.
+// All apps may follow links among these approved BWA sites and sign-in hosts.
+def navigationHosts = [
+    'rhib-control.blw.ai',
+    'rhib.blw.ai',
+    'dreadnought.blw.ai',
+    'rhib-grafana.blw.ai', // Observed destination in the RHIB sign-in flow.
+    'bluewater-ai.cloudflareaccess.com',
+    'login.microsoftonline.com',
+    'login.microsoft.com',
+    'login.live.com'
+]
+
+ext.portals = [
+    rhibControl: [
+        // Preserve this ID so existing RHIB Control installs can update.
+        applicationId: 'ai.blw.mfd.rhibcontrol',
+        name: 'RHIB Control',
+        url: 'https://rhib-control.blw.ai/',
+        hosts: navigationHosts
+    ],
+    rhib: [
+        applicationId: 'ai.blw.mfd.rhib',
+        name: 'RHIB',
+        url: 'https://rhib.blw.ai/',
+        hosts: navigationHosts
+    ],
+    dreadnought: [
+        applicationId: 'ai.blw.mfd.dreadnought',
+        name: 'Dreadnought',
+        url: 'https://dreadnought.blw.ai/',
+        hosts: navigationHosts
+    ]
+]

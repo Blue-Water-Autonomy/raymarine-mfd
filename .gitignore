@@ -33,3 +33,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Local APK handoff and macOS files
+dist/
+.DS_Store

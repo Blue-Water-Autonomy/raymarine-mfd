@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Back</string>
+    <string name="home">Home</string>
+    <string name="reload">Reload</string>
+    <string name="info">Info</string>
+    <string name="open_home">Open %1$s</string>
+    <string name="loading">Loading…</string>
+    <string name="unavailable_title">Page unavailable</string>
+    <string name="network_error">The page could not be loaded. Check the display’s network connection, then open the app again.</string>
+    <string name="http_error">The server returned an error (HTTP %1$d). Open the app again to retry.</string>
+    <string name="tls_error">The secure connection could not be verified. Check the display’s date, time, and network connection.</string>
+    <string name="renderer_error">The page stopped responding. Open the app again to reconnect.</string>
+    <string name="unavailable_webview">This display’s web browser could not start. Contact your display administrator.</string>
+    <string name="blocked_title">Link unavailable</string>
+    <string name="blocked_link">This link is outside the app’s configured sites. Open it on another device, or ask your administrator to add the required sign-in site.</string>
+    <string name="blocked_destination">Navigation to %1$s is not allowed. Ask your administrator to check this sign-in destination.</string>
+    <string name="blocked_popup">This page tried to open another window. Sign-in must stay within the app’s main window.</string>
+    <string name="info_title">About %1$s</string>
+    <string name="info_body">App: %1$s\nAndroid: %2$s (API %3$d)\nWebView: %4$s\nStart page: %5$s\n\n%6$s</string>
+    <string name="provider_unknown">Version unavailable</string>
+    <string name="close">Close</string>
+</resources>
