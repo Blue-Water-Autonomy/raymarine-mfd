@@ -13,8 +13,8 @@ android {
         // This is an OEM-distributed MFD app, not a Play Store app. Match the
         // documented Axiom 2 platform until Raymarine confirms its requirements.
         targetSdk 30
-        versionCode 3
-        versionName '0.2.0'
+        versionCode 4
+        versionName '0.2.1'
     }
 
     flavorDimensions += 'portal'

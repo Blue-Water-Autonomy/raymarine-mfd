@@ -23,7 +23,7 @@ so each APK contains Android bytecode for both ARM32 and ARM64.
 unsigned. Raymarine must confirm its submission process, sign an accepted build,
 and the signed APK must be tested on the actual MFD before operational use.
 
-The [latest validation record](docs/validation-0.2.0.md) includes build results, emulator
+The [latest validation record](docs/validation-0.2.1.md) includes build results, emulator
 screenshots, and untested items. The [Raymarine email draft](docs/raymarine-questions.md)
 collects the remaining integration and signing questions.
 
@@ -107,6 +107,7 @@ dependency on power-module.
   The complete session still needs validation on the physical display.
 - Back, Home, Reload, and Info remain available above the page. Info shows the
   Android API, WebView provider/version where available, and user agent.
+  The compact 48dp header shows the app name without the current page URL.
 - Native page-load, HTTP, TLS, and renderer-failure screens cover the web surface.
   Recovery loads the configured entry point; it does not replay a failed POST.
 - Blocked navigation reports only its destination origin; popup restrictions use

@@ -30,7 +30,6 @@ public final class MainActivity extends Activity {
     private final NavigationPolicy navigation = new NavigationPolicy(BuildConfig.NAVIGATION_HOSTS);
     private WebView webView;
     private FrameLayout webContainer;
-    private TextView location;
     private View progress;
     private View errorPanel;
     private TextView errorMessage;
@@ -42,7 +41,6 @@ public final class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         webContainer = findViewById(R.id.web_container);
-        location = findViewById(R.id.location);
         progress = findViewById(R.id.progress);
         errorPanel = findViewById(R.id.error_panel);
         errorMessage = findViewById(R.id.error_message);
@@ -120,17 +118,15 @@ public final class MainActivity extends Activity {
         // Recovery always performs a fresh GET of the configured entry point.
         // Never replay a failed form submission or an OAuth callback.
         webView.stopLoading();
-        beginLoad(BuildConfig.START_URL);
+        beginLoad();
         webView.loadUrl(BuildConfig.START_URL);
     }
 
-    private void beginLoad(String url) {
+    private void beginLoad() {
         loadFailed = false;
         errorPanel.setVisibility(View.GONE);
         webContainer.setVisibility(View.VISIBLE);
         progress.setVisibility(View.VISIBLE);
-        // Never display query strings: authentication redirects contain tokens.
-        location.setText(NavigationPolicy.host(url));
         updateBack();
     }
 
@@ -260,7 +256,7 @@ public final class MainActivity extends Activity {
                 showError(getString(R.string.blocked_destination, NavigationPolicy.destination(url)));
                 return;
             }
-            beginLoad(url);
+            beginLoad();
         }
 
         @Override

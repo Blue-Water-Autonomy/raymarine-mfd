@@ -25,11 +25,6 @@ final class NavigationPolicy {
         return parseHttps(url) != null;
     }
 
-    static String host(String url) {
-        URI uri = parseHttps(url);
-        return uri == null ? "" : uri.getHost();
-    }
-
     // Diagnostics show only the network origin, never OAuth paths or parameters.
     static String destination(String url) {
         try {

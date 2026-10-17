@@ -80,7 +80,6 @@ public final class MainActivityTest {
         assertFalse(client.shouldOverrideUrlLoading(webView, "https://rhib-grafana.blw.ai/"));
         client.onPageStarted(webView, "https://rhib.blw.ai/", null);
         assertEquals(View.GONE, activity.findViewById(R.id.error_panel).getVisibility());
-        assertEquals("rhib.blw.ai", ((TextView) activity.findViewById(R.id.location)).getText().toString());
     }
 
     @Test
@@ -129,9 +128,8 @@ public final class MainActivityTest {
     }
 
     @Test
-    public void pageStartedAlsoChecksDestinationsAndRedactsLocation() {
+    public void pageStartedAlsoChecksDestinations() {
         client.onPageStarted(webView, "https://login.microsoftonline.com/tenant?code=synthetic-test-code", null);
-        assertEquals("login.microsoftonline.com", ((TextView) activity.findViewById(R.id.location)).getText().toString());
         client.onPageStarted(webView, "https://evil.example/", null);
         assertEquals(View.VISIBLE, activity.findViewById(R.id.error_panel).getVisibility());
     }

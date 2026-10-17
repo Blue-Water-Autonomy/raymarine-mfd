@@ -51,13 +51,6 @@ public final class NavigationPolicyTest {
     }
 
     @Test
-    public void locationDoesNotExposeAuthenticationParameters() {
-        assertEquals("login.microsoftonline.com", NavigationPolicy.host(
-                "https://login.microsoftonline.com/tenant?code=synthetic-test-code#test-state"));
-        assertEquals("", NavigationPolicy.host("javascript:alert(1)"));
-    }
-
-    @Test
     public void blockedDestinationOmitsSecretsAndOpaquePayloads() {
         assertEquals("https://example.com:8443", NavigationPolicy.destination(
                 "https://test-user:test-password@example.com:8443/private?code=test-code#test-token"));
