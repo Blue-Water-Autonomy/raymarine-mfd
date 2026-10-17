@@ -1,0 +1,16 @@
+// Each entry produces a separate launcher app using the same WebView shell.
+// Add only confirmed HTTPS entry points and exact top-level sign-in hosts.
+ext.portals = [
+    rhib: [
+        applicationId: 'ai.blw.mfd.rhibcontrol',
+        name: 'RHIB Control',
+        url: 'https://rhib-control.blw.ai/',
+        hosts: [
+            'rhib-control.blw.ai',
+            'bluewater-ai.cloudflareaccess.com',
+            'login.microsoftonline.com',
+            'login.microsoft.com',
+            'login.live.com'
+        ]
+    ]
+]

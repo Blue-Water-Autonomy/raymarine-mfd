@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.application'
+}
+
+apply from: rootProject.file('portals.gradle')
+
+android {
+    namespace 'ai.blw.mfd'
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 23
+        // This is an OEM-distributed MFD app, not a Play Store app. Match the
+        // documented Axiom 2 platform until Raymarine confirms its requirements.
+        targetSdk 30
+        versionCode 1
+        versionName '0.1.0'
+    }
+
+    flavorDimensions += 'portal'
+    productFlavors {
+        portals.each { key, portal ->
+            create(key) {
+                dimension 'portal'
+                applicationId portal.applicationId
+                resValue 'string', 'app_name', portal.name
+                buildConfigField 'String', 'START_URL', groovy.json.JsonOutput.toJson(portal.url)
+                buildConfigField 'String[]', 'NAVIGATION_HOSTS',
+                    '{' + portal.hosts.collect { groovy.json.JsonOutput.toJson(it) }.join(',') + '}'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+        release {
+            // Deliberately unsigned: Raymarine's submission/signing process is
+            // still to be confirmed. Never ship a debug-signed APK as approved.
+            minifyEnabled false
+        }
+    }
+
+    buildFeatures { buildConfig true }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions { unitTests.includeAndroidResources = true }
+    lint {
+        abortOnError true
+        // OEM distribution, with target 30 pending Raymarine confirmation.
+        // This check enforces Google Play's submission policy.
+        disable 'ExpiredTargetSdkVersion'
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+}
