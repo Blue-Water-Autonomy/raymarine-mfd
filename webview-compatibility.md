@@ -58,6 +58,19 @@ adb -s emulator-5556 shell cmd webviewupdate set-webview-implementation com.goog
 [Chromium's provider documentation](https://chromium.googlesource.com/chromium/src/+/HEAD/android_webview/docs/webview-providers.md)
 explains the image-specific allowlist and signature requirements.
 
+## Follow-up checks on WebView 128
+
+- Cody reported that RHIB looks good as well.
+- RHIB Control initially displayed a plain “Unauthorized” page at its home
+  origin. Its process stopped before the failed response could be inspected.
+- Reopening RHIB Control rendered its control interface. A read-only GET of `/`
+  returned HTTP 200, and Cloudflare session cookies were present and unexpired.
+  No cookies were cleared and no authentication configuration was changed.
+- The failed request's status and source were not captured. Its cause remains
+  unconfirmed; successful reopening does not establish a permanent fix.
+- No vessel controls were operated during these checks. Operational behavior
+  and session-expiry recovery still require separate testing.
+
 ## Physical-device follow-up
 
 Ask Alex for the LightHouse version and the wrapper's Info screen, which includes
