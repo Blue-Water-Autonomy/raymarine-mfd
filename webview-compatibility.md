@@ -33,10 +33,11 @@ Raymarine firmware may have different provider/signature restrictions.
 
 - Git blob: `258dc814a9dc02ce953889440255d6787fca7b57` (verified after download).
 - APK SHA-256: `492c3d054e4123ae0c1e6f3541e5ab515633e1fb4006e33bf343749ef1b66ae2`.
-- On the new engine, CSS layers, `oklch()`, `:has()`, `Array.toSorted`, and
+- On the new engine, CSS layers, `oklch()`, `:has()`, `Array.prototype.toSorted`, and
   `structuredClone` probes succeed; an independent WebGL 2 context also succeeds.
-- Switching providers returned the app to Cloudflare sign-in. Authenticated
-  Dreadnought rendering on the new provider remains pending user sign-in.
+- Switching providers returned the app to Cloudflare sign-in. After signing in
+  again, Cody reported that Dreadnought looks good on the new provider. This is
+  a user-confirmed visual check, not a full functional or endurance test.
 
 This pinned historical AOSP build is a compatibility test, not a current
 production browser recommendation. It is not bundled with any of our APKs.
@@ -67,5 +68,5 @@ Ask Raymarine whether a maintained, newer WebView is available and supported.
 If the engine cannot be updated, supporting that browser requires deliberate
 frontend compatibility work across CSS, JavaScript, and chart rendering.
 
-Not tested: authenticated map rendering with WebView 128, long-running graphics
-stability, physical MFD compatibility, telemetry correctness, or vessel commands.
+Not tested: complete Dreadnought workflows, long-running graphics stability,
+physical MFD compatibility, telemetry correctness, or vessel commands.
