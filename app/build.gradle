@@ -4,6 +4,15 @@ plugins {
 
 apply from: rootProject.file('portals.gradle')
 
+// Workflow run numbers survive retries and increase across main builds.
+def ciBuildNumber = providers.gradleProperty('ciBuildNumber').orNull
+if (ciBuildNumber != null && !(ciBuildNumber ==~ /[1-9][0-9]{0,8}/)) {
+    throw new GradleException('ciBuildNumber must be a positive integer of at most 9 digits')
+}
+def appVersionName = ciBuildNumber == null ? '0.2.1' : "0.2.1+build.${ciBuildNumber}"
+def appVersionCode = ciBuildNumber == null ? 4 : 1000 + ciBuildNumber.toInteger()
+
+
 android {
     namespace 'ai.blw.mfd'
     compileSdk 35
@@ -13,8 +22,8 @@ android {
         // This is an OEM-distributed MFD app, not a Play Store app. Match the
         // documented Axiom 2 platform until Raymarine confirms its requirements.
         targetSdk 30
-        versionCode 4
-        versionName '0.2.1'
+        versionCode appVersionCode
+        versionName appVersionName
     }
 
     flavorDimensions += 'portal'

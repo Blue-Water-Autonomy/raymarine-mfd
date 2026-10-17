@@ -37,3 +37,6 @@ google-services.json
 # Local APK handoff and macOS files
 dist/
 .DS_Store
+
+# Python release tooling
+__pycache__/
