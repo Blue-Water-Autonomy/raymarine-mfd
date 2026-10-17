@@ -68,6 +68,17 @@ public final class NavigationPolicyTest {
     }
 
     @Test
+    public void everyAppAllowsTheRequestedSitesAndObservedRhibRedirect() {
+        NavigationPolicy compiled = new NavigationPolicy(BuildConfig.NAVIGATION_HOSTS);
+        for (String host : new String[] {"rhib-control.blw.ai", "rhib.blw.ai",
+                "dreadnought.blw.ai", "rhib-grafana.blw.ai"}) {
+            assertTrue(host, compiled.allows("https://" + host + "/"));
+            assertFalse(host, compiled.allows("http://" + host + "/"));
+            assertFalse(host, compiled.allows("https://" + host + ".evil.example/"));
+        }
+    }
+
+    @Test
     public void compiledPortalIsIncludedInItsOwnPolicy() {
         assertTrue(new NavigationPolicy(BuildConfig.NAVIGATION_HOSTS).allows(BuildConfig.START_URL));
     }

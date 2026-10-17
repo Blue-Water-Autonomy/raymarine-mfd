@@ -3,16 +3,27 @@
 Small Android WebView wrappers for BWA web interfaces on Raymarine displays.
 Tracked by [MAR-188](https://linear.app/blwai/issue/MAR-188/enable-rhib-controlblwai-access-from-mfd).
 
-The first app opens **https://rhib-control.blw.ai/**. It uses the display's
-installed WebView; Chrome, Google Play Services, and a Trusted Web Activity
-provider are not required. No native libraries are bundled, so the same APK
-contains architecture-independent Android bytecode for both ARM32 and ARM64.
+One shared WebView shell builds three separate launcher apps:
+
+| App | Start URL | Flavor | Release package ID |
+| --- | --- | --- | --- |
+| RHIB Control | https://rhib-control.blw.ai/ | `rhibControl` | `ai.blw.mfd.rhibcontrol` |
+| RHIB | https://rhib.blw.ai/ | `rhib` | `ai.blw.mfd.rhib` |
+| Dreadnought | https://dreadnought.blw.ai/ | `dreadnought` | `ai.blw.mfd.dreadnought` |
+
+All three can be installed together. Each has independent cookies and app data,
+so signing into one does not sign into the others. Home and error recovery return
+to that app's configured URL. The RHIB Control package ID is unchanged from 0.1.x.
+
+The apps use the display's installed WebView; Chrome, Google Play Services, and a
+Trusted Web Activity provider are not required. No native libraries are bundled,
+so each APK contains Android bytecode for both ARM32 and ARM64.
 
 **Status: development prototype, not Raymarine-approved.** The release output is
 unsigned. Raymarine must confirm its submission process, sign an accepted build,
 and the signed APK must be tested on the actual MFD before operational use.
 
-The [latest validation record](docs/validation-0.1.1.md) includes build results, emulator
+The [latest validation record](docs/validation-0.2.0.md) includes build results, emulator
 screenshots, and untested items. The [Raymarine email draft](docs/raymarine-questions.md)
 collects the remaining integration and signing questions.
 
@@ -43,16 +54,39 @@ Point `ANDROID_HOME` at your SDK, or put `sdk.dir=/absolute/path/to/sdk` in the
 ignored `local.properties`. From the repository root:
 
 ```sh
-./gradlew :app:testRhibDebugUnitTest :app:lintRhibRelease \
-  :app:assembleRhibDebug :app:assembleRhibRelease
+./gradlew :app:verifyPortals
+```
+
+This runs unit tests, full lint, and APK assembly for every configured flavor in
+debug and release mode. To build only the three unsigned release APKs:
+
+```sh
+./gradlew :app:assembleRelease
+```
+
+To build a single app, select its flavor:
+
+```sh
+./gradlew :app:assembleRhibControlRelease
+./gradlew :app:assembleRhibRelease
+./gradlew :app:assembleDreadnoughtRelease
 ```
 
 Outputs:
 
-- `app/build/outputs/apk/rhib/debug/app-rhib-debug.apk`: debug-signed, package
-  `ai.blw.mfd.rhibcontrol.debug`, for an emulator or normal Android test device.
-- `app/build/outputs/apk/rhib/release/app-rhib-release-unsigned.apk`: unsigned,
-  package `ai.blw.mfd.rhibcontrol`, candidate for Raymarine's signing process.
+| App | Unsigned release APK |
+| --- | --- |
+| RHIB Control | `app/build/outputs/apk/rhibControl/release/app-rhibControl-release-unsigned.apk` |
+| RHIB | `app/build/outputs/apk/rhib/release/app-rhib-release-unsigned.apk` |
+| Dreadnought | `app/build/outputs/apk/dreadnought/release/app-dreadnought-release-unsigned.apk` |
+
+Debug APKs are under each flavor's `debug/` directory. Their package IDs have a
+`.debug` suffix and they use a development signature. These are for an emulator
+or ordinary Android test device. CI uploads three unsigned APKs, three debug APKs,
+and test reports as separate artifact groups.
+
+The old `Rhib` build task produced RHIB Control in 0.1.x. Use `RhibControl` for
+that app now; `Rhib` builds the separate `https://rhib.blw.ai/` launcher.
 
 An unsigned APK cannot be installed directly. A debug signature does not grant
 permission to install on a Raymarine MFD. No signing keys or credentials belong
@@ -85,9 +119,9 @@ dependency on power-module.
 ## Navigation and limitations
 
 `portals.gradle` defines each app's name, package ID, entry URL, and exact allowed
-top-level HTTPS hosts. It includes the RHIB portal, the observed Cloudflare
-tenant, and Microsoft's sign-in hosts. New sign-in destinations require an
-explicit configuration change. HTTPS subresources are not restricted to those
+top-level HTTPS hosts. Each app allows the three requested BWA sites, the observed
+RHIB Grafana destination, the Cloudflare tenant, and Microsoft's sign-in hosts.
+New sign-in destinations require an explicit configuration change. HTTPS subresources are not restricted to those
 hosts, allowing authentication assets and the web application's dependencies.
 This policy is not a network firewall.
 
@@ -111,12 +145,12 @@ cookies, rather than restoring an arbitrary authentication callback URL.
 
 Add an entry to `portals.gradle` with a unique application ID, display name,
 confirmed HTTPS URL, and exact navigation hosts. Each entry becomes a Gradle
-product flavor and separate launcher app. Do not add a guessed Dreadnought URL
-or use an MFD's management IP as the web application's address.
+product flavor and separate launcher app. Extend the shared navigation host list
+only with confirmed destinations; no wildcard domains are allowed.
 
-Run `./gradlew test lint assembleDebug assembleRelease` to
-check every configured portal. The navigation tests also verify that each
-flavor permits its own entry point. Add the new site's actual sign-in flow to
+Run `./gradlew :app:verifyPortals` to check every configured portal. The navigation
+tests verify that each flavor permits its own entry point and
+the approved linked sites. Add the new site's actual sign-in flow to
 device acceptance testing.
 
 ## References

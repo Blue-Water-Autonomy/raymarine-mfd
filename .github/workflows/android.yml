@@ -27,12 +27,22 @@ jobs:
       - name: Install compile SDK
         run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
       - name: Test, lint, and build
-        run: ./gradlew test lint :app:lintRhibRelease assembleDebug assembleRelease --no-daemon
-      - name: Upload APKs and test reports
+        run: ./gradlew :app:verifyPortals --no-daemon
+      - name: Upload unsigned release APKs
         uses: actions/upload-artifact@v4
         with:
-          name: mfd-apks-${{ github.sha }}
+          name: raymarine-mfd-unsigned-${{ github.sha }}
           if-no-files-found: error
-          path: |
-            app/build/outputs/apk/
-            app/build/reports/
+          path: app/build/outputs/apk/*/release/*.apk
+      - name: Upload debug APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: raymarine-mfd-debug-${{ github.sha }}
+          if-no-files-found: error
+          path: app/build/outputs/apk/*/debug/*.apk
+      - name: Upload test and lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raymarine-mfd-reports-${{ github.sha }}
+          path: app/build/reports/

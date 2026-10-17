@@ -14,7 +14,9 @@ We would like to display our RHIB control web interface on the two Raymarine
 MFDs installed on RHIBerty. Our inventory describes them as Axiom 2 Pro 9-inch;
 we are collecting exact product numbers and LightHouse software versions.
 
-We have a small Android WebView APK that opens `https://rhib-control.blw.ai/`.
+We have a small Android WebView shell that builds separate APKs for
+`https://rhib-control.blw.ai/`, `https://rhib.blw.ai/`, and
+`https://dreadnought.blw.ai/`, each with its own launcher and package ID.
 It uses HTTPS, JavaScript, DOM storage, and cookies, with Cloudflare Access and
 Microsoft sign-in. It contains no native libraries or direct vessel-network
 protocol integration. An Android 11 emulator completes Microsoft sign-in and renders the RHIB
@@ -24,7 +26,8 @@ Your LightHouse documentation describes Axiom 2 as Android 11/API 30/ARM64 and
 requires Raymarine-approved, signed APKs. Could you help confirm the following?
 
 1. What is the process for reviewing and signing a privately deployed partner
-   APK? Should we submit an unsigned build or one signed with our own key?
+   APK? Can we submit these three apps together? Should builds be unsigned or
+   signed with our own key?
 2. Are there required target/minimum SDK levels, manifest entries, permissions,
    package-name conventions, launcher assets, or lifecycle behaviors?
 3. Which Android System WebView version ships with these displays, and how is

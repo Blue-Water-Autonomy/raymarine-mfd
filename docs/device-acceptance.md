@@ -1,6 +1,7 @@
 # MAR-188 device acceptance
 
-The following checks require a Raymarine-signed APK and physical display access.
+Run these checks for RHIB Control, RHIB, and Dreadnought. Each app has a separate
+package ID and requires its own signed APK for physical display installation.
 They are acceptance criteria, not a record of completed tests.
 
 ## Collect before submission
@@ -14,7 +15,8 @@ They are acceptance criteria, not a record of completed tests.
 
 ## On an emulator or ordinary Android device
 
-Install the debug build with `adb install -r app-rhib-debug.apk`. This establishes
+Install each debug APK with `adb install -r <apk-path>`. Confirm the three apps
+coexist with distinct names and open their own start URLs. This establishes
 ordinary Android behavior only. Match the MFD's WebView version where possible.
 
 Check startup, top-level login redirects, Back/Home/Reload, orientation changes,
