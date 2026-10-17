@@ -112,6 +112,32 @@ GitHub Actions builds the flavors, runs unit tests and lint, and uploads APKs an
 reports. This repository has no native libraries, ROS dependencies, or runtime
 dependency on power-module.
 
+## Automatic GitHub releases
+
+Every push to `main` (including a merged PR) publishes a GitHub release after
+all variants pass tests, lint, and assembly. Branch builds, pull requests, and
+manual workflow runs build the same bundle but do not publish releases.
+
+CI supplies `-PciBuildNumber=$GITHUB_RUN_NUMBER`: run 42 embeds version
+`0.2.1+build.42` and Android version code `1042`, and creates tag
+`v0.2.1+build.42` at the exact tested commit. Run numbers may have gaps because
+branch/PR builds also consume them. Local builds keep version `0.2.1`, code `4`.
+Preserve the Android APK workflow's run-number sequence; replacing the workflow
+requires a new version-code offset to keep future Android updates increasing.
+
+Each release contains three unsigned APKs, three debug APKs, `release.json`
+(commit, embedded version, and APK hashes), and `SHA256SUMS`. For example:
+`rhib-control-0.2.1+build.42-unsigned.apk`. Unsigned APKs still require Raymarine
+signing. CI debug keys are ephemeral, so debug APKs from separate runs may require
+uninstalling the previous debug app, which clears its session.
+
+Publication creates a draft, uploads all assets, then publishes it. Rerunning a
+failed workflow retains its version and can finish an interrupted draft. An
+already published release is left intact. Re-run the failed main workflow to
+retry publication; a manual workflow dispatch intentionally does not publish.
+Only the release job receives repository write permission; it uses `GITHUB_TOKEN`
+and needs no additional secret. Repository rules must permit its release tags.
+
 ## App behavior
 
 - JavaScript, DOM storage, first-party cookies, and HTTPS navigation support the
