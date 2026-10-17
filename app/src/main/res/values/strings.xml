@@ -14,6 +14,8 @@
     <string name="unavailable_webview">This display’s web browser could not start. Contact your display administrator.</string>
     <string name="blocked_title">Link unavailable</string>
     <string name="blocked_link">This link is outside the app’s configured sites. Open it on another device, or ask your administrator to add the required sign-in site.</string>
+    <string name="blocked_destination">Navigation to %1$s is not allowed. Ask your administrator to check this sign-in destination.</string>
+    <string name="blocked_popup">This page tried to open another window. Sign-in must stay within the app’s main window.</string>
     <string name="info_title">About %1$s</string>
     <string name="info_body">App: %1$s\nAndroid: %2$s (API %3$d)\nWebView: %4$s\nStart page: %5$s\n\n%6$s</string>
     <string name="provider_unknown">Version unavailable</string>

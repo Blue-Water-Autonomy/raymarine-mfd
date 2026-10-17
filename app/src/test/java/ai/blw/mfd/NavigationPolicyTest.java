@@ -58,6 +58,16 @@ public final class NavigationPolicyTest {
     }
 
     @Test
+    public void blockedDestinationOmitsSecretsAndOpaquePayloads() {
+        assertEquals("https://example.com:8443", NavigationPolicy.destination(
+                "https://test-user:test-password@example.com:8443/private?code=test-code#test-token"));
+        assertEquals("intent:", NavigationPolicy.destination("intent://test-secret/#Intent;end"));
+        assertEquals("data:", NavigationPolicy.destination("data:text/plain,test-secret"));
+        assertEquals("unrecognized URL", NavigationPolicy.destination("invalid test-secret"));
+        assertEquals("unrecognized URL", NavigationPolicy.destination(null));
+    }
+
+    @Test
     public void compiledPortalIsIncludedInItsOwnPolicy() {
         assertTrue(new NavigationPolicy(BuildConfig.NAVIGATION_HOSTS).allows(BuildConfig.START_URL));
     }

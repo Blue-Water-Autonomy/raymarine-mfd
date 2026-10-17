@@ -12,7 +12,7 @@ contains architecture-independent Android bytecode for both ARM32 and ARM64.
 unsigned. Raymarine must confirm its submission process, sign an accepted build,
 and the signed APK must be tested on the actual MFD before operational use.
 
-The [validation record](docs/validation.md) includes build results, emulator
+The [latest validation record](docs/validation-0.1.1.md) includes build results, emulator
 screenshots, and untested items. The [Raymarine email draft](docs/raymarine-questions.md)
 collects the remaining integration and signing questions.
 
@@ -68,11 +68,15 @@ dependency on power-module.
   hosted application and its sign-in flow.
 - The initial public redirect was observed through
   `bluewater-ai.cloudflareaccess.com` to `login.microsoftonline.com`. The actual
-  authenticated session still needs testing with the organization's policies.
+  authenticated flow also reaches `rhib.blw.ai` and `rhib-grafana.blw.ai`; both
+  observed destinations are explicitly allowed.
+  The complete session still needs validation on the physical display.
 - Back, Home, Reload, and Info remain available above the page. Info shows the
   Android API, WebView provider/version where available, and user agent.
 - Native page-load, HTTP, TLS, and renderer-failure screens cover the web surface.
   Recovery loads the configured entry point; it does not replay a failed POST.
+- Blocked navigation reports only its destination origin; popup restrictions use
+  a separate message. Debug builds log this same sanitized diagnostic.
 - Sessions persist in the app's private WebView storage. Android backup is disabled.
   Use the display's app-data controls to clear a session before transferring a device.
 - The app preserves the system navigation controls and does not force orientation,

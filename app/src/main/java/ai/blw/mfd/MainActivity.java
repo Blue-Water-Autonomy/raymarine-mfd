@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.SslErrorHandler;
@@ -101,7 +102,7 @@ public final class MainActivity extends Activity {
             public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message result) {
                 // Popups need their own navigation policy and lifecycle. Keep
                 // this first version single-window and explain the limitation.
-                showBlockedLink();
+                showBlockedLink(getString(R.string.blocked_popup));
                 return false;
             }
         });
@@ -142,10 +143,13 @@ public final class MainActivity extends Activity {
         updateBack();
     }
 
-    private void showBlockedLink() {
+    private void showBlockedLink(String message) {
+        if (BuildConfig.DEBUG) {
+            Log.i("MfdNavigation", message);
+        }
         new AlertDialog.Builder(this)
                 .setTitle(R.string.blocked_title)
-                .setMessage(R.string.blocked_link)
+                .setMessage(message)
                 .setPositiveButton(R.string.close, null)
                 .show();
     }
@@ -242,7 +246,7 @@ public final class MainActivity extends Activity {
                 return false;
             }
             if (mainFrame) {
-                showBlockedLink();
+                showBlockedLink(getString(R.string.blocked_destination, NavigationPolicy.destination(url)));
             }
             return true;
         }
@@ -253,7 +257,7 @@ public final class MainActivity extends Activity {
             // in particular). Stop unexpected destinations here as well.
             if (!navigation.allows(url)) {
                 view.stopLoading();
-                showError(getString(R.string.blocked_link));
+                showError(getString(R.string.blocked_destination, NavigationPolicy.destination(url)));
                 return;
             }
             beginLoad(url);

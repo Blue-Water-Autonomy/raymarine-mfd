@@ -30,6 +30,25 @@ final class NavigationPolicy {
         return uri == null ? "" : uri.getHost();
     }
 
+    // Diagnostics show only the network origin, never OAuth paths or parameters.
+    static String destination(String url) {
+        try {
+            URI uri = new URI(url == null ? "" : url);
+            String scheme = uri.getScheme();
+            if (scheme == null) {
+                return "unrecognized URL";
+            }
+            if (("https".equalsIgnoreCase(scheme) || "http".equalsIgnoreCase(scheme))
+                    && uri.getHost() != null) {
+                return scheme.toLowerCase(Locale.ROOT) + "://" + uri.getHost()
+                        + (uri.getPort() == -1 ? "" : ":" + uri.getPort());
+            }
+            return scheme.toLowerCase(Locale.ROOT) + ":";
+        } catch (URISyntaxException invalidUrl) {
+            return "unrecognized URL";
+        }
+    }
+
     private static URI parseHttps(String url) {
         if (url == null) {
             return null;

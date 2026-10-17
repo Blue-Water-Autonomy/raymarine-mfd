@@ -17,8 +17,8 @@ we are collecting exact product numbers and LightHouse software versions.
 We have a small Android WebView APK that opens `https://rhib-control.blw.ai/`.
 It uses HTTPS, JavaScript, DOM storage, and cookies, with Cloudflare Access and
 Microsoft sign-in. It contains no native libraries or direct vessel-network
-protocol integration. An Android 11 emulator reaches our Microsoft sign-in
-page; authenticated login and MFD installation remain untested.
+protocol integration. An Android 11 emulator completes Microsoft sign-in and renders the RHIB
+interface. MFD installation remains untested.
 
 Your LightHouse documentation describes Axiom 2 as Android 11/API 30/ARM64 and
 requires Raymarine-approved, signed APKs. Could you help confirm the following?

@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import static org.robolectric.Shadows.shadowOf;
 
 import android.content.Intent;
+import android.app.AlertDialog;
+import org.robolectric.shadows.ShadowAlertDialog;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.WebResourceRequest;
@@ -70,6 +72,33 @@ public final class MainActivityTest {
         assertFalse(client.shouldOverrideUrlLoading(webView, "https://login.microsoftonline.com/tenant/login"));
         assertTrue(client.shouldOverrideUrlLoading(webView, "https://evil.example/"));
         assertTrue(client.shouldOverrideUrlLoading(webView, "intent://external-app/"));
+    }
+
+    @Test
+    public void permitsObservedRhibDestinationsAfterMicrosoftSignIn() {
+        assertFalse(client.shouldOverrideUrlLoading(webView, "https://rhib.blw.ai/"));
+        assertFalse(client.shouldOverrideUrlLoading(webView, "https://rhib-grafana.blw.ai/"));
+        client.onPageStarted(webView, "https://rhib.blw.ai/", null);
+        assertEquals(View.GONE, activity.findViewById(R.id.error_panel).getVisibility());
+        assertEquals("rhib.blw.ai", ((TextView) activity.findViewById(R.id.location)).getText().toString());
+    }
+
+    @Test
+    public void blockedNavigationExplainsOnlyTheDestinationOrigin() {
+        client.shouldOverrideUrlLoading(webView, "https://other.example/private?code=test-secret#test-token");
+        AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
+        String message = shadowOf(dialog).getMessage().toString();
+        assertTrue(message.contains("https://other.example"));
+        assertFalse(message.contains("private"));
+        assertFalse(message.contains("test-secret"));
+        assertFalse(message.contains("test-token"));
+    }
+
+    @Test
+    public void popupExplainsTheWindowRestriction() {
+        assertFalse(shadowOf(webView).getWebChromeClient().onCreateWindow(webView, false, true, null));
+        AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
+        assertEquals(activity.getString(R.string.blocked_popup), shadowOf(dialog).getMessage().toString());
     }
 
     @Test

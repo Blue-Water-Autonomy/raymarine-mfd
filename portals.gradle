@@ -7,6 +7,8 @@ ext.portals = [
         url: 'https://rhib-control.blw.ai/',
         hosts: [
             'rhib-control.blw.ai',
+            'rhib.blw.ai', // Observed portal destinations after Microsoft sign-in.
+            'rhib-grafana.blw.ai',
             'bluewater-ai.cloudflareaccess.com',
             'login.microsoftonline.com',
             'login.microsoft.com',
