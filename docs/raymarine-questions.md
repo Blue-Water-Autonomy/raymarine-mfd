@@ -33,6 +33,10 @@ requires Raymarine-approved, signed APKs. Could you help confirm the following?
 3. Which Android System WebView version ships with these displays, and how is
    it updated? Are embedded Cloudflare/Microsoft login, cookies, and JavaScript
    supported? Is there a recommended alternative for authentication?
+   Our Android 11 test image shipped WebView 91, which fails Dreadnought startup
+   and cannot apply its modern CSS. Does your current LightHouse release provide
+   a newer engine with CSS layers, modern JavaScript APIs, and WebGL 2 support?
+   Can partners request a WebView update independently of a LightHouse release?
 4. Can the app use wired Ethernet for HTTPS internet access, and are there
    routing, DNS, proxy, or certificate-store restrictions we should account for?
 5. How are signed-app updates distributed, and will the same signing identity

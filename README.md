@@ -44,6 +44,22 @@ not a verified Raymarine requirement or a Play Store submission configuration.
 Supporting these Android versions does not establish compatibility with every
 MFD or every installed WebView. See [device acceptance](docs/device-acceptance.md).
 
+## WebView compatibility
+
+APK installation and website compatibility are separate checks. The Android 11
+emulator's original WebView 91 cannot run the deployed Dreadnought frontend:
+startup throws `Object.hasOwn is not a function`, and unsupported CSS layers leave
+the page unstyled. Both normally hidden GPU status messages become visible;
+that screen alone does not establish a GPU fault. A separate WebGL 2 probe succeeds.
+
+Dreadnought uses Tailwind CSS 4, whose documented Chrome baseline is 111.
+That is a CSS baseline, not a verified minimum for the complete application.
+The wrapper uses the installed browser engine; rebuilding its APK cannot add
+missing browser features. See the [diagnosis and emulator setup](webview-compatibility.md).
+
+Before MFD submission, obtain its WebView provider/version and Raymarine's
+supported update path. Validate the authenticated chart UI on that exact engine.
+
 ## Build
 
 Requirements: JDK 17, Android SDK Platform 35, Build Tools 35.0.0, and internet

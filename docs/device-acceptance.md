@@ -12,6 +12,9 @@ They are acceptance criteria, not a record of completed tests.
 4. Record whether the display uses wired Ethernet, Wi-Fi, and an internet connection.
 5. Ask Raymarine for its target SDK, manifest, package naming, and signing requirements.
 6. Confirm whether a private partner deployment is supported without a public app listing.
+7. Obtain the installed WebView provider/version and Raymarine's supported update path.
+   Dreadnought fails on WebView 91; Android 11 alone does not establish compatibility.
+   See the [browser diagnosis](../webview-compatibility.md).
 
 ## On an emulator or ordinary Android device
 
