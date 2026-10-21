@@ -6,6 +6,9 @@ They are acceptance criteria, not a record of completed tests.
 
 ## Collect before submission
 
+Items 1–4 and the WebView version in item 7 are partly recorded in the
+[display record](vessel-displays.md).
+
 1. Record each display's exact product number and LightHouse version.
 2. Photograph Settings → Network → the display's Product info.
 3. Confirm the current IP of each display; one historical address does not identify both.

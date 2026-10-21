@@ -29,9 +29,13 @@ collects the remaining integration and signing questions.
 
 ## Target hardware
 
-RHIBerty reportedly has two Axiom 2 displays at the driver's console, described
-internally as “Axiom 2 Pro 9-inch.” Exact product numbers and LightHouse builds
-still need device confirmation. Raymarine's LightHouse 4 documentation lists:
+RHIBerty has two Raymarine Axiom 2 12 displays (E70724) at the driver's console.
+MFD1, to the driver's left, is the data master. Operators may open these apps on
+either or both displays as a mission requires. Both use wired RayNet and reach
+the internet through the vessel's Starlink connection. MFD1 runs LightHouse 5
+(product bundle 5.0.127). See the [display record](docs/vessel-displays.md).
+
+Raymarine's LightHouse 4 documentation lists:
 
 | Family | Android | API | Architecture |
 | --- | --- | --- | --- |
@@ -57,8 +61,11 @@ That is a CSS baseline, not a verified minimum for the complete application.
 The wrapper uses the installed browser engine; rebuilding its APK cannot add
 missing browser features. See the [diagnosis and emulator setup](webview-compatibility.md).
 
-Before MFD submission, obtain its WebView provider/version and Raymarine's
-supported update path. Validate the authenticated chart UI on that exact engine.
+On the vessel, Dreadnought and RHIB Control both worked in the browser view
+reachable from Raymarine's approved Netflix app, and Dreadnought rendered its
+chart. That view reports Android WebView with Chrome 145 on Android 11; see the
+[display record](docs/vessel-displays.md). Ask Raymarine how WebView is updated.
+Validate the authenticated chart UI in the installed app on the display.
 
 ## Build
 
