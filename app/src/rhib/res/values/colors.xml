@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- blw.ai's brand red distinguishes the RHIB apps from Dreadnought. -->
+    <color name="launcher_background">#F9003C</color>
+</resources>

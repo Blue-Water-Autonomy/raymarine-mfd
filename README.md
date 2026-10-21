@@ -23,8 +23,9 @@ so each APK contains Android bytecode for both ARM32 and ARM64.
 unsigned. Raymarine must confirm its submission process, sign an accepted build,
 and the signed APK must be tested on the actual MFD before operational use.
 
-The [latest validation record](docs/validation-0.2.1.md) includes build results, emulator
-screenshots, and untested items. The [Raymarine email draft](docs/raymarine-questions.md)
+The [latest validation record](docs/validation-0.2.2.md) covers the launcher icons; the
+[0.2.0 record](docs/validation-0.2.0.md) has emulator screenshots and untested items.
+The [Raymarine email draft](docs/raymarine-questions.md)
 collects the remaining integration and signing questions.
 
 ## Target hardware
@@ -126,15 +127,15 @@ all variants pass tests, lint, and assembly. Branch builds, pull requests, and
 manual workflow runs build the same bundle but do not publish releases.
 
 CI supplies `-PciBuildNumber=$GITHUB_RUN_NUMBER`: run 42 embeds version
-`0.2.1+build.42` and Android version code `1042`, and creates tag
-`v0.2.1+build.42` at the exact tested commit. Run numbers may have gaps because
-branch/PR builds also consume them. Local builds keep version `0.2.1`, code `4`.
+`0.2.2+build.42` and Android version code `1042`, and creates tag
+`v0.2.2+build.42` at the exact tested commit. Run numbers may have gaps because
+branch/PR builds also consume them. Local builds keep version `0.2.2`, code `5`.
 Preserve the Android APK workflow's run-number sequence; replacing the workflow
 requires a new version-code offset to keep future Android updates increasing.
 
 Each release contains three unsigned APKs, three debug APKs, `release.json`
 (commit, embedded version, and APK hashes), and `SHA256SUMS`. For example:
-`rhib-control-0.2.1+build.42-unsigned.apk`. Unsigned APKs still require Raymarine
+`rhib-control-0.2.2+build.42-unsigned.apk`. Unsigned APKs still require Raymarine
 signing. CI debug keys are ephemeral, so debug APKs from separate runs may require
 uninstalling the previous debug app, which clears its session.
 
@@ -202,6 +203,22 @@ Run `./gradlew :app:verifyPortals` to check every configured portal. The navigat
 tests verify that each flavor permits its own entry point and
 the approved linked sites. Add the new site's actual sign-in flow to
 device acceptance testing.
+
+## Launcher icons
+
+Each app shows the Blue Water mark from blw.ai: white on BWA Blue (`#3B72DF`) for
+Dreadnought, and white on the site's red (`#F9003C`) for RHIB and RHIB Control.
+RHIB Control adds DOMETIC under the mark. Colors are set in each flavor's
+`res/values/colors.xml`. A new portal gets the blue icon unless its flavor
+overrides `launcher_background`.
+
+The VectorDrawables are generated; edit `scripts/launcher_icons.py`, not the XML:
+
+```sh
+python3 scripts/launcher_icons.py --preview /tmp/launcher-icons.svg
+```
+
+![Launcher icons](docs/screenshots/launcher-icons.png)
 
 ## References
 
