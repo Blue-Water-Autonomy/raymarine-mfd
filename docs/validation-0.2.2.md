@@ -17,6 +17,6 @@ Changed on 2026-10-21.
 ![Launcher icons](screenshots/launcher-icons.png)
 
 This preview is an SVG rendering of the same path data, not a device screenshot.
-No local Android SDK was available. CI on PR #3 runs the build, lint, and unit
+No local Android SDK was available. CI on PR #4 runs the build, lint, and unit
 tests. The icons have not been checked on an Android launcher or on the MFD's
 app launcher.
