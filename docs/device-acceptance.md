@@ -6,17 +6,18 @@ They are acceptance criteria, not a record of completed tests.
 
 ## Collect before submission
 
+Items 1–4 and the WebView version in item 7 are partly recorded in the
+[display record](vessel-displays.md).
+
 1. Record each display's exact product number and LightHouse version.
 2. Photograph Settings → Network → the display's Product info.
 3. Confirm the current IP of each display; one historical address does not identify both.
 4. Record whether the display uses wired Ethernet, Wi-Fi, and an internet connection.
-   Both displays reach the internet through Starlink (reported 2026-10-19).
 5. Ask Raymarine for its target SDK, manifest, package naming, and signing requirements.
 6. Confirm whether a private partner deployment is supported without a public app listing.
 7. Obtain the installed WebView provider/version and Raymarine's supported update path.
    Dreadnought fails on WebView 91; Android 11 alone does not establish compatibility.
-   It worked in the browser view reachable from the approved Netflix app on the
-   displays; record that view's user agent. See the [browser diagnosis](../webview-compatibility.md).
+   See the [browser diagnosis](../webview-compatibility.md).
 
 ## On an emulator or ordinary Android device
 

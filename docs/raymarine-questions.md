@@ -11,8 +11,8 @@ Draft only; not sent.
 Hi Darren and Andrew,
 
 We would like to display our RHIB control web interfaces on the two Raymarine
-MFDs installed on RHIBerty, both Axiom 2 Pro 12-inch displays. We will follow up
-with their exact product numbers and LightHouse software versions.
+MFDs installed on RHIBerty, both Axiom 2 12 displays (E70724). MFD1, the data
+master, runs LightHouse 5 (application 5.00.116, product bundle 5.0.127).
 
 We have a small Android WebView shell that builds separate APKs for
 `https://rhib-control.blw.ai/`, `https://rhib.blw.ai/`, and
@@ -24,8 +24,9 @@ renders the RHIB interface.
 
 On the boat, Alex opened the browser view reachable from the approved Netflix
 app, the route your rep showed him. Dreadnought and RHIB Control both worked
-there over the vessel's Starlink connection. Installing our APKs on the
-displays remains untested.
+there over the vessel's Starlink connection. That view reports Android WebView
+with Chrome 145 on Android 11, so we expect the same engine to run our apps.
+Installing our APKs on the displays remains untested.
 
 The three unsigned APKs (version 0.2.1+build.24, version code 1024) are here:
 [link]. SHA-256:
@@ -37,19 +38,20 @@ The three unsigned APKs (version 0.2.1+build.24, version code 1024) are here:
 - `dreadnought-0.2.1+build.24-unsigned.apk`:
   `c96e18ab3247faf353fabbb050afde8c792b4727decb12ecfa67bbf91e2ba08e`
 
-Your LightHouse documentation describes Axiom 2 as Android 11/API 30/ARM64 and
+Your LightHouse 4 documentation describes Axiom 2 as Android 11/API 30/ARM64 and
 requires Raymarine-approved, signed APKs. Could you help confirm the following?
 
 1. What is the process for reviewing and signing a privately deployed partner
    APK? Can we submit these three apps together? Should builds be unsigned or
    signed with our own key?
 2. Are there required target/minimum SDK levels, manifest entries, permissions,
-   package-name conventions, launcher assets, or lifecycle behaviors?
-3. Which Android System WebView version ships with the current LightHouse
-   release on Axiom 2, and how is it updated? Our sites need a modern engine:
-   an Android 11 emulator's stock WebView 91 cannot run Dreadnought. Are
-   embedded Cloudflare/Microsoft login, cookies, and JavaScript supported in
-   partner apps?
+   package-name conventions, launcher assets, or lifecycle behaviors? Does
+   anything differ on LightHouse 5?
+3. How is Android System WebView updated on Axiom 2: with LightHouse releases
+   or separately? Our sites need a modern engine (an Android 11 emulator's stock
+   WebView 91 cannot run Dreadnought), so we want to avoid an older one on a
+   future display. Are embedded Cloudflare/Microsoft login, cookies, and
+   JavaScript supported in partner apps?
 4. Do partner apps have the same network access as the built-in apps, or are
    there proxy, DNS, or certificate-store differences we should account for?
 5. How are signed-app updates distributed, and will the same signing identity
@@ -72,8 +74,9 @@ Cody
   so Teledyne cannot use its release page, and mail filters often block `.apk`
   attachments. The hashes above come from the build.24 release's `release.json`.
 - Add Alex's email address to Cc.
-- If Alex has captured the browser view's user agent by then, state the
-  WebView version in question 3 instead of only asking for it.
+
+Display details and the full user agent are in the
+[display record](vessel-displays.md).
 
 ## Documentation behind these questions
 
@@ -82,7 +85,8 @@ Cody
   from SD card or USB.
 - [LightHouse apps and signing](https://docs.raymarine.com/81406/en-US/latest/LightHouseApps-62C7CC8F.html)
 
-The Netflix browser view is a workaround, not a supported installation path,
-and its browser engine has not been identified. The Android target SDK in this
+The Netflix browser view is a workaround, not a supported installation path.
+The APK compatibility page lists app versions for LightHouse 4; MFD1 runs LightHouse 5.
+The Android target SDK in this
 prototype is a provisional choice, not a documented Raymarine submission
 requirement.
