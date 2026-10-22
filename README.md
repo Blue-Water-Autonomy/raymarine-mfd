@@ -206,11 +206,11 @@ device acceptance testing.
 
 ## Launcher icons
 
-Each app shows the Blue Water mark from blw.ai: white on BWA Blue (`#3B72DF`) for
-Dreadnought, and white on the site's red (`#F9003C`) for RHIB and RHIB Control.
-RHIB Control adds DOMETIC under the mark. Colors are set in each flavor's
-`res/values/colors.xml`. A new portal gets the blue icon unless its flavor
-overrides `launcher_background`.
+Dreadnought and RHIB show the Blue Water mark from blw.ai, white on BWA Blue
+(`#3B72DF`) and on the site's red (`#F9003C`) respectively. RHIB Control shows a
+white steering wheel on black. Colors are set in each flavor's
+`res/values/colors.xml`. A new portal gets the blue Blue Water icon unless its
+flavor overrides `launcher_background` or the drawable.
 
 The VectorDrawables are generated; edit `scripts/launcher_icons.py`, not the XML:
 
