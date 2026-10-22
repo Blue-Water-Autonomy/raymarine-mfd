@@ -31,17 +31,14 @@ both work there, and that view reports Android WebView with Chrome 145 on
 Android 11. We can't install our own APKs on the displays without your
 signature, so that step is untested.
 
-**The APKs.** Unsigned release builds, version 0.2.1+build.24 (version code
-1024), are here: [link]
+**The APKs.** Unsigned release builds, version [0.2.2+build.N] (version code
+[10NN]), are here: [link]
 
 SHA-256:
 
-- rhib-control-0.2.1+build.24-unsigned.apk:
-  1a85f4260dd6897a0eda12e50fd8a96e989d946bdafbabf827fe67446b27ca23
-- rhib-0.2.1+build.24-unsigned.apk:
-  b736721888a55300ec8e56a148216619dc5250a9c3eef5480d1d3deba452f2e2
-- dreadnought-0.2.1+build.24-unsigned.apk:
-  c96e18ab3247faf353fabbb050afde8c792b4727decb12ecfa67bbf91e2ba08e
+- rhib-control-[version]-unsigned.apk: [hash]
+- rhib-[version]-unsigned.apk: [hash]
+- dreadnought-[version]-unsigned.apk: [hash]
 
 Could you help with the following?
 
@@ -78,7 +75,9 @@ Blue Water Autonomy
 
 - Replace `[link]` with a shared-file link. The GitHub repository is internal,
   so Teledyne cannot use its release page, and mail filters often block `.apk`
-  attachments. The hashes above come from the build.24 release's `release.json`.
+  attachments.
+- Fill in the version, version code, and hashes from `release.json` in the first
+  GitHub release after the launcher icons merge. Build 24 predates the icons.
 - Add Alex's email address to Cc.
 
 Display details and the full user agent are in the

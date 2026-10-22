@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Blue Water mark on BWA Blue, the brand's standard logo color. -->
+    <color name="launcher_background">#3B72DF</color>
+    <color name="launcher_foreground">#FFFFFF</color>
+</resources>
